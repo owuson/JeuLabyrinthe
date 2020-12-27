@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 
 public class Main {
 
@@ -11,7 +12,7 @@ public class Main {
         fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         fenetre.setSize(1400, 720);
         fenetre.setLocationRelativeTo(null);
-        fenetre.setResizable(false);
+        fenetre.setResizable(true);
         fenetre.setAlwaysOnTop(true);
 
 
@@ -19,5 +20,16 @@ public class Main {
 
         fenetre.setContentPane(scene); // La fenêtre est associé à la scene du jeu
         fenetre.setVisible(true);
+    }
+
+    public void paintComponent(Graphics g){
+
+        //super.paintComponent(g);
+        Graphics g2 = (Graphics2D)g;
+
+        /*
+         g2.drawImage();
+         g2.drawImage();
+        */
     }
 }
