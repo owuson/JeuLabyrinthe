@@ -1,3 +1,5 @@
+package com.Labyrinthe.Jeu;
+
 import javax.swing.*;
 import java.awt.*;
 
