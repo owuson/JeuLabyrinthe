@@ -1,5 +1,8 @@
 package com.Labyrinthe.Jeu;
 
+import com.Labyrinthe.connexion.IDEtMdp;
+import com.Labyrinthe.connexion.Login;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -33,5 +36,9 @@ public class Main {
          g2.drawImage();
          g2.drawImage();
         */
+
     }
+
+    IDEtMdp idetmdp = new IDEtMdp();
+    Login login = new Login(IDEtMdp.getLoginInfo());
 }

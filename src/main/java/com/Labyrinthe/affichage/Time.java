@@ -8,8 +8,8 @@ public class Time implements Runnable{
 
     public Time () {
 
-        this.compteurTemps = 500;
-        this.str = "Temps restant : 500";
+        this.compteurTemps = 600;
+        this.str = "Temps restant : 600";
 
         Thread Time = new Thread(this);
         Time.start();
