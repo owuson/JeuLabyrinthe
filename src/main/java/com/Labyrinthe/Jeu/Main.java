@@ -1,8 +1,5 @@
 package com.Labyrinthe.Jeu;
 
-import com.Labyrinthe.connexion.IDEtMdp;
-import com.Labyrinthe.connexion.Login;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -20,25 +17,10 @@ public class Main {
         fenetre.setResizable(true);
         fenetre.setAlwaysOnTop(true);
 
-
-        scene = new Scene();
-
-        fenetre.setContentPane(scene); // La fenêtre est associé à la scene du jeu
+        JPanel panneau = new JPanel();
+        fenetre.setContentPane(panneau);
         fenetre.setVisible(true);
-    }
-
-    public void paintComponent(Graphics g){
-
-        //super.paintComponent(g);
-        Graphics g2 = (Graphics2D)g;
-
-        /*
-         g2.drawImage();
-         g2.drawImage();
-        */
+        panneau.setBackground(Color.GRAY);
 
     }
-
-    IDEtMdp idetmdp = new IDEtMdp();
-    Login login = new Login(IDEtMdp.getLoginInfo());
 }
