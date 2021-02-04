@@ -10,20 +10,19 @@ public class bdd {
 
     public static void main(String[] args) {
         try {
-            Connection myconn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Labyrinthe","root","rootroot");
-            Statement mystmt = myconn.createStatement();
-            ResultSet myrs = mystmt.executeQuery("SELECT * FROM user ");
-            while (myrs.next()){
-                System.out.println(myrs.getString("pseudo")+ ", " +myrs.getString("username"));
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Labyrinthe", "root", "rootroot");
+            Statement mystmt = conn.createStatement();
+            ResultSet resultat = mystmt.executeQuery("SELECT * FROM user");
+            while (resultat.next()) {
+                System.out.println(resultat.getInt("userId")+ resultat.getString("email") + resultat.getString("password") +resultat.getDate("userBirthday") +resultat.getString("pseudo") + ", " + resultat.getString("userName"));
             }
 
-        }catch(Exception exc)
-            {
-                exc.printStackTrace();
+        } catch (Exception exc) {
+            exc.printStackTrace();
 
-            }
+        }
 
-        
+
     }
 
 }
