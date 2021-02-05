@@ -10,13 +10,18 @@ public class bdd {
 
     public static void main(String[] args) {
         try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Labyrinthe", "root", "rootroot");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Labyrinthes", "root", "16*uH2aTQn^9UJUWahZn");
             Statement mystmt = conn.createStatement();
-            ResultSet resultat = mystmt.executeQuery("SELECT * FROM user");
-            while (resultat.next()) {
-                System.out.println(resultat.getInt("userId")+ resultat.getString("email") + resultat.getString("password") +resultat.getDate("userBirthday") +resultat.getString("pseudo") + ", " + resultat.getString("userName"));
+            //String sql = "INSERT INTO users (user_name, pseudo, password, email)" + "VALUES ('toto', 'pop', 'tutrouverasjamais', 'tetet@hfhfh.g')";
+            //String sql = "UPDATE users SET pseudo = 'jonny' WHERE user_name = 'toto'";
+            //String sql = "DELETE FROM users WHERE user_name = 'toto'";
+            String sql = "SELECT * FROM users";
+            ResultSet result = mystmt.executeQuery(sql);
+            while (result.next()) {
+                String username = result.getString(2);
+                System.out.println(username);
             }
-
+            conn.close();
         } catch (Exception exc) {
             exc.printStackTrace();
 
