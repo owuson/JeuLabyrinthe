@@ -1,6 +1,6 @@
 package com.Labyrinthe.modele;
 
-public class Patient extends User {
+public class Patient extends Users {
 
     private String pseudo;
     private int age;

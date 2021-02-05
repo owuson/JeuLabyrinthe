@@ -1,6 +1,6 @@
 package com.Labyrinthe.modele;
 
-public class Soignant extends User {
+public class Soignant extends Users {
 
     private String email;
     private String password;

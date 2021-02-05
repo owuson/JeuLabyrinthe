@@ -1,26 +1,28 @@
 package com.Labyrinthe.modele;
 
-public class User {
+public class Users {
 
     private String nom;
     private String prenom;
 
-    public User(String nom, String prenom){
+    public Users(String nom, String prenom){
 
         this.prenom = prenom;
         this.nom = nom;
 
     }
 
-    public User() {
+    public Users() {
 
     }
 
     public String getNom(){
+
         return nom;
     }
 
     public String getPrenom(){
+
         return prenom;
     }
 
