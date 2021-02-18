@@ -1,27 +1,52 @@
 package com.Labyrinthe.connexion;
-
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
-
-public class Login implements ActionListener {
-
-    JFrame frame = new JFrame();
-    JButton loginButton = new JButton("Connexion");
-    JTextField username = new JTextField();
-    JPasswordField password = new JPasswordField();
-    JLabel userlabel = new JLabel("Pseudo : ");
-    JLabel passwordlabel = new JLabel("Mot de passe : ");
-    HashMap<String, String> logininfo = new HashMap<String, String>();
-
-    Login(HashMap<String, String> loginInfoOriginal){
-
-        logininfo = loginInfoOriginal;
+class Login extends JFrame implements ActionListener {
+    JPanel panel;
+    JLabel user_label, password_label, message;
+    JTextField userName_text;
+    JPasswordField password_text;
+    JButton submit, cancel;
+    Login() {
+        // Username Label
+        user_label = new JLabel();
+        user_label.setText("Pseudo :");
+        userName_text = new JTextField();
+        // Password Label
+        password_label = new JLabel();
+        password_label.setText("Mot de passe :");
+        password_text = new JPasswordField();
+        // Submit
+        submit = new JButton("Connexion");
+        panel = new JPanel(new GridLayout(3, 1));
+        panel.add(user_label);
+        panel.add(userName_text);
+        panel.add(password_label);
+        panel.add(password_text);
+        message = new JLabel();
+        panel.add(message);
+        panel.add(submit);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // Adding the listeners to components..
+        submit.addActionListener(this);
+        add(panel, BorderLayout.CENTER);
+        setTitle("Veuillez vous connecter !");
+        setSize(1400,700);
+        setVisible(true);
     }
-
+    public static void main(String[] args) {
+        new Login();
+    }
     @Override
-    public void actionPerformed(ActionEvent e) {
-
+    public void actionPerformed(ActionEvent ae) {
+        String userName = userName_text.getText();
+        String password = password_text.getText();
+        if (userName.trim().equals("admin") && password.trim().equals("admin")) {
+            message.setText(" Salut " + userName + "");
+        } else {
+            message.setText(" Votre compte n'existe pas.. ");
+        }
     }
 }

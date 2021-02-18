@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class BDManagement {
 
-    private Connection conn = null;
+    private final Connection conn;
 
     public BDManagement() throws SQLException {
         conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Labyrinthes", "root", "16*uH2aTQn^9UJUWahZn");
@@ -29,7 +29,6 @@ public class BDManagement {
         }
 
         return listUsers;
-
 
         }
     }
