@@ -8,10 +8,10 @@ public class Scene extends JPanel {
 
     private Time time;
     // Constructor
-    public Scene(){
+    public Scene(int duree){
 
         super();
-        time = new Time();
+        time = new Time(duree);
     }
 
     //g2.drawString(this.time.toStr(), 5, 25)

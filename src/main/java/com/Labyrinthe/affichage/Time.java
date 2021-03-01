@@ -6,10 +6,10 @@ public class Time implements Runnable{
     private int compteurTemps;
     private String str;
 
-    public Time () {
+    public Time (int duree) {
 
-        this.compteurTemps = 600;
-        this.str = "Temps restant : 600";
+        this.compteurTemps = duree;
+        this.str = "Temps restant : " + this.compteurTemps;
 
         Thread Time = new Thread(this);
         Time.start();
