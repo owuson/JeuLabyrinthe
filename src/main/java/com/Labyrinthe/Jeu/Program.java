@@ -1,10 +1,6 @@
 package com.Labyrinthe.Jeu;
 
-/**
- * 
- * @author Sebastian Häni <haeni.sebastian@gmail.com>
- *
- */
+
 public class Program {
 	public static void main(String[] args) {
 		if (args.length >= 1) {
