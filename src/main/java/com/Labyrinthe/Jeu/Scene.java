@@ -28,6 +28,7 @@ public class Scene extends JPanel {
     public void restart(int duree) {
         time = new Time(duree);
     }
+    
     public boolean is_gameover() {
         // if (time.getCompteurTemps()== 0) {
         //     return true ;

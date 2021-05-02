@@ -1,15 +1,25 @@
 package com.Labyrinthe.Jeu;
+import com.Labyrinthe.labyrinth.*;
 
-import javax.swing.*;
-import javax.swing.border.Border;
-import java.awt.*;
+//import jdk.internal.org.objectweb.asm.tree.analysis.Frame;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javax.swing.BorderFactory;
+import javax.swing.border.Border;
+import javax.swing.*;
+import java.awt.*;
 
 public class Main {
 
-    public static Scene scene;
+    //public static Scene scene;
 
     public  Scene scene;
     private  LabyrinthModel _labyrinthModel ;
@@ -107,7 +117,7 @@ public class Main {
 		//add(mainPanel);
     }
 
-    private static void createMenuBar(JFrame frame) {
+    private  void createMenuBar(JFrame frame) {
 		//final JFrame frame = fenetre;
 
 		JMenuBar bar = new JMenuBar();
@@ -149,15 +159,18 @@ public class Main {
         ButtonGroup difficultyGroup = new ButtonGroup();
 
         final JRadioButton  radioFacile = new JRadioButton("Facile");
+        radioFacile.setActionCommand("Facile");
         radioFacile.setSelected(true);
 
         difficultyGroup.add(radioFacile);
 
         
         final JRadioButton  radioMoyenne = new JRadioButton("Moyenne");
+        radioMoyenne.setActionCommand("Moyenne");
         difficultyGroup.add(radioMoyenne);
 
         final JRadioButton  radioDifficile = new JRadioButton("Difficile");
+        radioDifficile.setActionCommand("Difficile");
         difficultyGroup.add(radioDifficile);
 
         ButtonGroup dureeGroup = new ButtonGroup();
@@ -165,14 +178,18 @@ public class Main {
         final JRadioButton  radio1 = new JRadioButton("5 min");
         radio1.setSelected(true);
         dureeGroup.add(radio1);
+        radio1.setActionCommand("5");
 
-        final JRadioButton radio2 = new JRadioButton("7min");
+        final JRadioButton radio2 = new JRadioButton("7 min");
+        radio2.setActionCommand("7");
         dureeGroup.add(radio2);
         
         final JRadioButton  radio3 = new JRadioButton("10 min");
+        radio3.setActionCommand("10");
         dureeGroup.add(radio3);
 
         final JRadioButton  radio4 = new JRadioButton("15 min");
+        radio4.setActionCommand("15");
         dureeGroup.add(radio4);
 
 
@@ -183,6 +200,18 @@ public class Main {
 				dialogParametre.setVisible(false);
 				dialogParametre.dispose();
 
+                String dif=difficultyGroup.getSelection().getActionCommand();
+                if (dif == "Facile") {
+                    _difficulte = Difficulte.FACILE;
+                } else if (dif == "Moyenne") {
+                    _difficulte = Difficulte.MOYENNE;
+                } else {
+                    _difficulte =Difficulte.DIFFICILE;   
+                }
+
+                _dureeJeu = 60*Integer.parseInt(dureeGroup.getSelection().getActionCommand()); // nombre de secondes = 60x minutes
+
+                
 				/*_labyrinthModel.generateLabyrinth(
 						Integer.parseInt(widthTextfield.getText()),
 						Integer.parseInt(heightTextfield.getText()),
@@ -209,6 +238,7 @@ public class Main {
         dureePanel.add(radio1);
         dureePanel.add(radio2);
         dureePanel.add(radio3);
+        dureePanel.add(radio4);
 
 		difficultyPanel.add(btnAppliquer);
         dialogParametre.getContentPane().setLayout(new FlowLayout());
@@ -230,6 +260,8 @@ public class Main {
 					return;
 				}
                 */
+
+
 				dialogParametre.setVisible(true);
 			}
 		});
