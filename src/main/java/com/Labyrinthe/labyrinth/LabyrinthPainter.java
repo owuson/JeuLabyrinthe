@@ -170,7 +170,7 @@ public class LabyrinthPainter extends JPanel {
                     {   // GAGNE !
                         _labyrinth.setGagne(true);
                         JOptionPane.showMessageDialog(this,
-                            "Gagn� !");
+                            "Gagné !");
                     }
                     
                 }

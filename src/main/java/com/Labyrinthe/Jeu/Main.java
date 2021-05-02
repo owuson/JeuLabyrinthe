@@ -29,11 +29,14 @@ public class Main {
     private  LabyrinthModel _labyrinthModel ;
 	private  LabyrinthPainter _labyrinthPainter ;
     private boolean _painting = false;
-    private  int _dureeJeu= 300; // en secondes
+    private  int _dureeJeu= 30; // en secondes
 
-    enum Difficulte {FACILE, MOYENNE, DIIFICILE};
+    enum Difficulte {FACILE, MOYENNE, DIFFICILE};
     private  Difficulte _difficulte= Difficulte.FACILE;
-    private  int _width, _height; // taille du labyrynthe
+    private  int _width = 5, _height = 5; // taille du labyrynthe
+    private Boolean _slow= false;
+    private boolean _gameOver = false;
+    private int _reussis = 0 ;
 
 
     public Main(String mazeFile) {
@@ -53,8 +56,11 @@ public class Main {
         //panneau.setBackground(Color.GRAY);
 
         createMenuBar(fenetre);
-       // _labyrinthModel = new LabyrinthModel(mazeFile);
-        _labyrinthModel = new LabyrinthModel(mazeFile);
+
+        _labyrinthModel = new LabyrinthModel(_width, _height);
+
+        scene=new Scene(_dureeJeu);
+
         createGui(panneau, mazeFile);
         
         fenetre.setVisible(true);
@@ -63,11 +69,25 @@ public class Main {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (!_painting && _labyrinthModel.isDirty()) {
-                    _painting = true;
-                    _labyrinthModel.setDirty(false);
-                    _labyrinthPainter.repaint();
-                    _painting = false;
+                if (_gameOver == false) {
+                    if (!_painting && _labyrinthModel.isDirty()) {
+                        _painting = true;
+                        _labyrinthModel.setDirty(false);
+                        _labyrinthPainter.repaint(); 
+                        _painting = false;
+                    }
+                    scene.refresh();
+                    if (_labyrinthModel.isGagne()) {
+                        _width = _width +1;
+                        _height =  _height +1;
+                        _labyrinthModel.generateLabyrinth(_width, _height, _slow);
+                        _reussis = _reussis + 1 ; 
+                    }
+                    if (scene.is_gameover() && _gameOver == false ) {
+                        JOptionPane.showMessageDialog(fenetre,
+                        "Game Over \n Vous avez complété " + String.valueOf(_reussis) + " labyrinthes");
+                        _gameOver = true ;
+                    }
                 }
             }
         };
@@ -93,6 +113,8 @@ public class Main {
 			}
 		});
         mainPanel.add(_labyrinthPainter);
+        mainPanel.add(scene);
+
 
 		Border border = BorderFactory.createEmptyBorder(5, 5, 5, 5);
 		mainPanel.setBorder(border);
@@ -162,12 +184,14 @@ public class Main {
                     _width = _height = 5;
                 } else if (_difficulte == Difficulte.MOYENNE) {
                     _width = _height = 10;
-                } else if (_difficulte == Difficulte.DIIFICILE) {
+                } else if (_difficulte == Difficulte.DIFFICILE) {
                     _width = _height = 15;
                 }
-                Boolean slow= false;
-				_labyrinthModel.generateLabyrinth(_width, _height, slow);
-                scene = new Scene(_dureeJeu);
+                
+				_labyrinthModel.generateLabyrinth(_width, _height, _slow);
+                //scene = new Scene(_dureeJeu);
+                scene.restart(_dureeJeu);
+                _gameOver = false ;
 			}
 		});
 

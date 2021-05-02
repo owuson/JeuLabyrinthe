@@ -43,6 +43,10 @@ public class LabyrinthModel {
 	public LabyrinthModel() {
 		generateLabyrinth(10, 10, false);
 	}
+	
+	public LabyrinthModel(int w, int h) {
+		generateLabyrinth(w, h, false);
+	}
 
     public Tile getLastTilePosition() {
         return _lastTilePosition;
