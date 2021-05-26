@@ -1,9 +1,17 @@
 package com.Labyrinthe.modele;
 
+import javax.swing.*;
+
 public class Soignant extends Users {
 
     private String email;
     private String password;
+    private JTextField textMail;
+    private JTextField textPassword;
+    private JButton saveButton;
+    private JTable table1;
+    private JButton updateButton;
+    private JButton deleteButton;
 
     public Soignant(String nom, String prenom, String email, String password) {
 
@@ -13,9 +21,8 @@ public class Soignant extends Users {
 
     }
 
-    public Soignant(String email, String password) {
-        super();
-    }
+
+
 
     //
 

@@ -1,41 +1,21 @@
 package com.Labyrinthe.Jeu;
-import com.Labyrinthe.labyrinth.*;
 
-//import jdk.internal.org.objectweb.asm.tree.analysis.Frame;
-
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
+import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import javax.swing.BorderFactory;
-import javax.swing.border.Border;
-import javax.swing.*;
-import java.awt.*;
+import java.awt.event.KeyEvent;
 
 public class Main {
 
-    //public static Scene scene;
+    public static Scene scene;
 
-    public  Scene scene;
-    private  LabyrinthModel _labyrinthModel ;
-	private  LabyrinthPainter _labyrinthPainter ;
-    private boolean _painting = false;
-    private  int _dureeJeu= 30; // en secondes
-
-    enum Difficulte {FACILE, MOYENNE, DIFFICILE};
-    private  Difficulte _difficulte= Difficulte.FACILE;
-    private  int _width = 5, _height = 5; // taille du labyrynthe
-    private Boolean _slow= false;
-    private boolean _gameOver = false;
-    private int _reussis = 0 ;
+	public Main(String arg) {
+	}
 
 
-    public Main(String mazeFile) {
+	public static void main(String[] args){
         // Creation de la fenêtre graphique de l'application
         JFrame fenetre = new JFrame("Jeu du labyrinthe");
         fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -46,78 +26,13 @@ public class Main {
 
         JPanel panneau = new JPanel();
         fenetre.setContentPane(panneau);
-        //fenetre.add(panneau);
-        
-        //panneau.setBackground(Color.GRAY);
+        fenetre.setVisible(true);
+        panneau.setBackground(Color.GRAY);
 
         createMenuBar(fenetre);
-
-        _labyrinthModel = new LabyrinthModel(_width, _height);
-
-        scene=new Scene(_dureeJeu);
-
-        createGui(panneau, mazeFile);
-        
-        fenetre.setVisible(true);
-        
-        // Timer to repaint the labyrinth when another thread is changing it.
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                if (_gameOver == false) {
-                    if (!_painting && _labyrinthModel.isDirty()) {
-                        _painting = true;
-                        _labyrinthModel.setDirty(false);
-                        _labyrinthPainter.repaint(); 
-                        _painting = false;
-                    }
-                    scene.refresh();
-                    if (_labyrinthModel.isGagne()) {
-                        _width = _width +1;
-                        _height =  _height +1;
-                        _labyrinthModel.generateLabyrinth(_width, _height, _slow);
-                        _reussis = _reussis + 1 ; 
-                    }
-                    if (scene.is_gameover() && _gameOver == false ) {
-                        JOptionPane.showMessageDialog(fenetre,
-                        "Game Over \n Vous avez complété " + String.valueOf(_reussis) + " labyrinthes");
-                        _gameOver = true ;
-                    }
-                }
-            }
-        };
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(task, 0, 50);
     }
 
-    private void createGui(JPanel mainPanel, String mazeFile) {
-		
-		//final  mainPaneJPanell = new JPanel();
-		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
-
-		_labyrinthPainter = new LabyrinthPainter(_labyrinthModel);
-
-		_labyrinthPainter.addMouseMotionListener(new MouseMotionListener() {
-			@Override
-			public void mouseMoved(MouseEvent event) {
-				_labyrinthPainter.searchPath2(event.getPoint());
-			}
-
-			@Override
-			public void mouseDragged(MouseEvent event) {
-			}
-		});
-        mainPanel.add(_labyrinthPainter);
-        mainPanel.add(scene);
-
-
-		Border border = BorderFactory.createEmptyBorder(5, 5, 5, 5);
-		mainPanel.setBorder(border);
-
-		//add(mainPanel);
-    }
-
-    private  void createMenuBar(JFrame frame) {
+    private static void createMenuBar(JFrame frame) {
 		//final JFrame frame = fenetre;
 
 		JMenuBar bar = new JMenuBar();
@@ -159,18 +74,15 @@ public class Main {
         ButtonGroup difficultyGroup = new ButtonGroup();
 
         final JRadioButton  radioFacile = new JRadioButton("Facile");
-        radioFacile.setActionCommand("Facile");
         radioFacile.setSelected(true);
 
         difficultyGroup.add(radioFacile);
 
         
         final JRadioButton  radioMoyenne = new JRadioButton("Moyenne");
-        radioMoyenne.setActionCommand("Moyenne");
         difficultyGroup.add(radioMoyenne);
 
         final JRadioButton  radioDifficile = new JRadioButton("Difficile");
-        radioDifficile.setActionCommand("Difficile");
         difficultyGroup.add(radioDifficile);
 
         ButtonGroup dureeGroup = new ButtonGroup();
@@ -178,18 +90,14 @@ public class Main {
         final JRadioButton  radio1 = new JRadioButton("5 min");
         radio1.setSelected(true);
         dureeGroup.add(radio1);
-        radio1.setActionCommand("5");
 
-        final JRadioButton radio2 = new JRadioButton("7 min");
-        radio2.setActionCommand("7");
+        final JRadioButton radio2 = new JRadioButton("7min");
         dureeGroup.add(radio2);
         
         final JRadioButton  radio3 = new JRadioButton("10 min");
-        radio3.setActionCommand("10");
         dureeGroup.add(radio3);
 
         final JRadioButton  radio4 = new JRadioButton("15 min");
-        radio4.setActionCommand("15");
         dureeGroup.add(radio4);
 
 
@@ -200,18 +108,6 @@ public class Main {
 				dialogParametre.setVisible(false);
 				dialogParametre.dispose();
 
-                String dif=difficultyGroup.getSelection().getActionCommand();
-                if (dif == "Facile") {
-                    _difficulte = Difficulte.FACILE;
-                } else if (dif == "Moyenne") {
-                    _difficulte = Difficulte.MOYENNE;
-                } else {
-                    _difficulte =Difficulte.DIFFICILE;   
-                }
-
-                _dureeJeu = 60*Integer.parseInt(dureeGroup.getSelection().getActionCommand()); // nombre de secondes = 60x minutes
-
-                
 				/*_labyrinthModel.generateLabyrinth(
 						Integer.parseInt(widthTextfield.getText()),
 						Integer.parseInt(heightTextfield.getText()),
@@ -238,7 +134,6 @@ public class Main {
         dureePanel.add(radio1);
         dureePanel.add(radio2);
         dureePanel.add(radio3);
-        dureePanel.add(radio4);
 
 		difficultyPanel.add(btnAppliquer);
         dialogParametre.getContentPane().setLayout(new FlowLayout());
@@ -260,8 +155,6 @@ public class Main {
 					return;
 				}
                 */
-
-
 				dialogParametre.setVisible(true);
 			}
 		});
@@ -284,19 +177,7 @@ public class Main {
 		jouer.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-                
-                if (_difficulte == Difficulte.FACILE) {
-                    _width = _height = 5;
-                } else if (_difficulte == Difficulte.MOYENNE) {
-                    _width = _height = 10;
-                } else if (_difficulte == Difficulte.DIFFICILE) {
-                    _width = _height = 15;
-                }
-                
-				_labyrinthModel.generateLabyrinth(_width, _height, _slow);
-                //scene = new Scene(_dureeJeu);
-                scene.restart(_dureeJeu);
-                _gameOver = false ;
+				//saveMazeFile();
 			}
 		});
 
