@@ -2,11 +2,11 @@ package com.Labyrinthe.Jeu;
 
 
 public class Program {
-	public static void main(String[] args) {
-		if (args.length >= 1) {
-			new Main(args[0]);
-		} else {
-			new Main(null);
-		}
-	}
+	//public static void main(String[] args) {
+	//	if (args.length >= 1) {
+	//		new Main(args[0]);
+	//	} else {
+	//		new Main(null);
+	//	}
+	//}
 }

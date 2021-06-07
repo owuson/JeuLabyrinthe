@@ -11,8 +11,7 @@ public class Main {
 
     public static Scene scene;
 
-	public Main(String arg) {
-	}
+
 
 
 	public static void main(String[] args){
